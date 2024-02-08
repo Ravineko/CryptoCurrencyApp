@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-
-using WpfApp1.Models;
 using WpfApp1.ViewModels;
+using WpfApp1.Models;
 
 namespace WpfApp1
 {
-    public partial class MainWindow : Window
+
+    public partial class CurrencyDetailView : Page
     {
-        public MainWindow()
+        public CurrencyDetailView(Currency selectedCurrency)
         {
             InitializeComponent();
-            DataContext = new MainViewModel(NavigationFrame);
+            DataContext = new CurrencyDetailViewModel(selectedCurrency);
         }
     }
 }

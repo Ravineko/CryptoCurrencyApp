@@ -16,6 +16,9 @@ namespace WpfApp1.Models
         public string Name { get; set; }
         public string Symbol { get; set; }
         public decimal PriceUsd { get; set; }
+        public decimal volumeUsd24Hr { get; set; } 
+        public decimal changePercent24Hr { get; set; } 
+        public List<Market> Markets { get; set; } 
 
     }
 }

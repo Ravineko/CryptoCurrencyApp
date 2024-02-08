@@ -13,6 +13,7 @@ namespace WpfApp1.Models
         public decimal Price { get; set; }
         public decimal Volume { get; set; }
         public decimal PriceChange { get; set; }
+        public List<Market> Markets { get; set; }
 
     }
 }
