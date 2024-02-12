@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
@@ -70,12 +71,13 @@ namespace WpfApp1.ViewModels
             LoadData();
         }
 
-        private async void LoadData()
+        private async Task LoadData()
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://api.coincap.io/v2/");
-                var response = await client.GetAsync("assets?limit=10");
+                var response = await client.GetAsync("assets?limit=100");
+
                 if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
@@ -96,6 +98,7 @@ namespace WpfApp1.ViewModels
                 }
             }
         }
+
 
         private void FilterCurrencies()
         {

@@ -11,10 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+
 
 using WpfApp1.Models;
 using WpfApp1.ViewModels;
+using WpfApp1.Utilities;
 
 namespace WpfApp1
 {
@@ -24,6 +26,10 @@ namespace WpfApp1
         {
             InitializeComponent();
             DataContext = new MainViewModel(NavigationFrame);
+        }
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

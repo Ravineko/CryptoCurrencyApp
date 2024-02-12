@@ -4,32 +4,167 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1.ViewModels"
+        xmlns:Menu="clr-namespace:WpfApp1.Utilities"
         mc:Ignorable="d"
-        Title="CryptoCurrency App" Height="450" Width="800">
+        Title="CryptoCurrency App" 
+        Height="600" 
+        Width="1000"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        
+        Background="Transparent">
+
+    <Window.Resources>
+        <!-- Define styles for TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Define styles for ListView -->
+        <Style TargetType="ListView">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderBrush" Value="DarkGray"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+
+        <!--Define styles for GridViewColumnHeader-->
+            <Style TargetType="GridViewColumnHeader">
+                <Setter Property="Background" Value="LightGray"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+
+    </Window.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <!-- Search Box -->
-        <TextBox Grid.Row="0" Margin="10" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+        <!--// Window Border //-->
 
-        <!-- Currency List -->
-        <ListView Grid.Row="1" ItemsSource="{Binding FilteredCurrencies}" SelectedItem="{Binding SelectedCurrency}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Symbol}" />
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
-   
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Border Background="#212529"
+                CornerRadius="20" />
+        <Grid>
+            <!--// Base Grid //-->
 
-        <!-- Detail View -->
-        <Frame Grid.Row="2" Name="NavigationFrame" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="228" />
+                <ColumnDefinition Width="622" />
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <!--// Navigation Panel //-->
+
+            <Grid HorizontalAlignment="Left"
+                  Width="228">
+
+                <Border Background="#272B2F"
+                        CornerRadius="20,0,0,20" />
+
+                <StackPanel Height="400"
+                            Width="228">
+
+                    <!--// Home //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              IsChecked="True">
+
+                        <Grid>
+
+                            <Image Source="Images/img_home.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Home"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+                    <!--// Convert//-->
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              IsChecked="True">
+
+                        <Grid>
+
+                            <Image Source="Images/img_transaction.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Convert"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+                    <!--// Charts//-->
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              IsChecked="True">
+
+                        <Grid>
+
+                            <Image Source="Images/img_transaction.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Charts"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Search Box -->
+                <TextBox Grid.Row="0" Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" />
+
+                <!-- Currency List -->
+                <ListView Grid.Row="1" ItemsSource="{Binding FilteredCurrencies}" SelectedItem="{Binding SelectedCurrency}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                            <GridViewColumn Header="Symbol" DisplayMemberBinding="{Binding Symbol}" />
+                            <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+            <Grid  Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>  
+                <Button 
+                    Grid.Row="0" 
+                    x:Name="CloseApp"
+                    Style="{StaticResource ExitApp}"
+                    Click="CloseApp_Click" />
+                <Frame Grid.Row="1" Name="NavigationFrame" />
+            </Grid>
+
+        </Grid>
     </Grid>
 
 </Window>
