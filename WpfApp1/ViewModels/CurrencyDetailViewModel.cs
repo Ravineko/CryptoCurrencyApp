@@ -11,7 +11,6 @@ namespace WpfApp1.ViewModels
         public decimal Price { get; set; }
         public decimal Volume { get; set; }
         public decimal PriceChange { get; set; }
-        public List<Market> Markets { get; set; }
 
         public CurrencyDetailViewModel(Currency selectedCurrency)
         {
@@ -20,7 +19,6 @@ namespace WpfApp1.ViewModels
             Price = selectedCurrency.Price;
             Volume = selectedCurrency.Volume;
             PriceChange = selectedCurrency.PriceChange;
-            Markets = selectedCurrency.Markets?.ToList();
         }
     }
 }

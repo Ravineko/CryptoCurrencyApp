@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-
-
-
-using WpfApp1.Models;
-using WpfApp1.ViewModels;
-using WpfApp1.Utilities;
+using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for Charts.xaml
+    /// </summary>
+    public partial class Charts : UserControl
     {
-        public MainWindow()
+        public Charts()
         {
             InitializeComponent();
-/*            DataContext = new NavigationViewModel();*/
-        }
-        private void CloseApp_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

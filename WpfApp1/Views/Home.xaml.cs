@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
 
-
-using WpfApp1.Models;
 using WpfApp1.ViewModels;
-using WpfApp1.Utilities;
 
 namespace WpfApp1
 {
-    public partial class MainWindow : Window
+    public partial class Home : UserControl
     {
-        public MainWindow()
+        public Home()
         {
             InitializeComponent();
-/*            DataContext = new NavigationViewModel();*/
-        }
-        private void CloseApp_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
+            DataContext = new HomeViewModel();
         }
     }
 }

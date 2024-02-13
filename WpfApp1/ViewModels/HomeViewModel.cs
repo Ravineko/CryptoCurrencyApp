@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Windows.Controls; 
 using WpfApp1.Models;
 
 namespace WpfApp1.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class HomeViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private readonly Frame _navigationFrame; 
 
         private ObservableCollection<Currency> _currencies;
         public ObservableCollection<Currency> Currencies
@@ -63,9 +59,11 @@ namespace WpfApp1.ViewModels
             }
         }
 
-        public MainViewModel(Frame navigationFrame)
+        private readonly Action<object> _navigateToDetailView;
+
+        public HomeViewModel(Action<object> navigateToDetailView = null)
         {
-            _navigationFrame = navigationFrame;
+            _navigateToDetailView = navigateToDetailView;
             Currencies = new ObservableCollection<Currency>();
             FilteredCurrencies = new ObservableCollection<Currency>();
             LoadData();
@@ -99,7 +97,6 @@ namespace WpfApp1.ViewModels
             }
         }
 
-
         private void FilterCurrencies()
         {
             if (string.IsNullOrWhiteSpace(SearchQuery))
@@ -119,8 +116,8 @@ namespace WpfApp1.ViewModels
         {
             if (SelectedCurrency != null)
             {
-                var currencyDetailView = new CurrencyDetailView(SelectedCurrency);
-                _navigationFrame.Navigate(currencyDetailView);
+                // Pass the selected currency to the detail view model
+                _navigateToDetailView?.Invoke(new CurrencyDetailViewModel(SelectedCurrency));
             }
         }
 
