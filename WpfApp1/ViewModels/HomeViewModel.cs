@@ -54,16 +54,26 @@ namespace WpfApp1.ViewModels
             set
             {
                 _selectedCurrency = value;
-                NavigateToCurrencyDetailView();
                 OnPropertyChanged(nameof(SelectedCurrency));
+                // Populate detailed information property here
+                PopulateDetailedInformation(value);
             }
         }
 
-        private readonly Action<object> _navigateToDetailView;
-
-        public HomeViewModel(Action<object> navigateToDetailView = null)
+        // Property to hold detailed information about the selected currency
+        private CurrencyDetail _detailedInformation;
+        public CurrencyDetail DetailedInformation
         {
-            _navigateToDetailView = navigateToDetailView;
+            get { return _detailedInformation; }
+            set
+            {
+                _detailedInformation = value;
+                OnPropertyChanged(nameof(DetailedInformation));
+            }
+        }
+
+        public HomeViewModel()
+        {
             Currencies = new ObservableCollection<Currency>();
             FilteredCurrencies = new ObservableCollection<Currency>();
             LoadData();
@@ -112,12 +122,15 @@ namespace WpfApp1.ViewModels
             }
         }
 
-        private void NavigateToCurrencyDetailView()
+        private void PopulateDetailedInformation(Currency currency)
         {
-            if (SelectedCurrency != null)
+            if (currency != null)
             {
-                // Pass the selected currency to the detail view model
-                _navigateToDetailView?.Invoke(new CurrencyDetailViewModel(SelectedCurrency));
+                DetailedInformation = new CurrencyDetail(currency);
+            }
+            else
+            {
+                DetailedInformation = null;
             }
         }
 

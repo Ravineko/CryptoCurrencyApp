@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using WpfApp1.Models;
-
-namespace WpfApp1.ViewModels
+﻿
+namespace WpfApp1.Models
 {
-    public class CurrencyDetailViewModel
+    public class CurrencyDetail
     {
         public string Name { get; set; }
         public string Symbol { get; set; }
@@ -12,7 +9,7 @@ namespace WpfApp1.ViewModels
         public decimal Volume { get; set; }
         public decimal PriceChange { get; set; }
 
-        public CurrencyDetailViewModel(Currency selectedCurrency)
+        public CurrencyDetail(Currency selectedCurrency)
         {
             Name = selectedCurrency.Name;
             Symbol = selectedCurrency.Symbol;

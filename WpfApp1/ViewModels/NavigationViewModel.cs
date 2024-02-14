@@ -30,7 +30,16 @@ namespace WpfApp1.ViewModels
         private void Home(object obj) => CurrentView = new HomeViewModel();
 
         private void Charts(object obj) => CurrentView = new ChartsViewModel();
-        private void Convert(object obj) => CurrentView = new ConvertViewModel();
+
+        private void Convert(object obj)
+        {
+            if (!(CurrentView is ConvertViewModel))
+            {
+                // Check if CurrentView is HomeViewModel and pass its currencies to ConvertViewModel
+                var homeViewModel = CurrentView as HomeViewModel;
+                CurrentView = new ConvertViewModel(homeViewModel?.Currencies);
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
