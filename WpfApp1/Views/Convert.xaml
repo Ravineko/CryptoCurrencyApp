@@ -4,31 +4,75 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfApp1"
+             xmlns:Menu="clr-namespace:WpfApp1.Utilities"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <!-- Apply the styles from the resource dictionary here -->
-        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}"/>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}"/>
-        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"/>
+        <!-- Style for the TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Foreground" Value="White"/>
+            <!-- Apply Button-like style -->
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                BorderThickness="1"
+                                Background="#212928"
+                                BorderBrush="Gray">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="DarkGray"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Apply the style to the ComboBox -->
+        <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#212928"/>
+            <Setter Property="Background" Value="#212928"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+        <!-- Apply the style to the Button -->
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="Background" Value="#212529"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="100"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="10" Background="#212529">
         <Grid.RowDefinitions>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="15"/>
-            <RowDefinition Height="15"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Amount to Convert:" Foreground="White"/>
+        <TextBlock Grid.Row="0" Text="Amount to Convert:" FontWeight="Bold" FontSize="20"  Foreground="White"/>
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AmountToConvert}" Width="120"/>
 
-        <TextBlock Grid.Row="1" Text="From Currency:" Foreground="White"/>
-        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedFromCurrency}" Width="120"/>
+        <TextBlock Grid.Row="1" Text="From Currency:" FontSize="16"  Foreground="White"/>
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedFromCurrency}" DisplayMemberPath="Name" Width="120" Height="80"/>
 
-        <TextBlock Grid.Row="2" Text="To Currency:" Foreground="White"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedToCurrency}" Width="120"/>
+        <TextBlock Grid.Row="2" Text="To Currency:" FontSize="16" Foreground="White"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Currencies}" SelectedItem="{Binding SelectedToCurrency}" DisplayMemberPath="Name" Width="120" Height="80"/>
 
-        <Button Grid.Row="3" Content="Convert" Command="{Binding ConvertCommand}" Margin="0,10,0,0"/>
+        <Button Grid.Row="3" Content="Convert" Command="{Binding ConvertCommand}"/>
     </Grid>
 </UserControl>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using WpfApp1.Models;
@@ -59,16 +58,19 @@ namespace WpfApp1.ViewModels
 
         private void Convert(object parameter)
         {
-            // Perform conversion logic here
-            double amount;
-            if (!double.TryParse(AmountToConvert, out amount))
+            if (!decimal.TryParse(AmountToConvert, out decimal amount))
             {
                 MessageBox.Show("Invalid amount.");
                 return;
             }
 
-            // Assume a simple conversion rate of 1:1 for demonstration
-            double convertedAmount = amount;
+            if (SelectedFromCurrency == null || SelectedToCurrency == null)
+            {
+                MessageBox.Show("Please select currencies.");
+                return;
+            }
+
+            decimal convertedAmount = (amount / SelectedFromCurrency.Price) * SelectedToCurrency.Price;
             MessageBox.Show($"{AmountToConvert} {SelectedFromCurrency.Symbol} = {convertedAmount} {SelectedToCurrency.Symbol}");
         }
 
